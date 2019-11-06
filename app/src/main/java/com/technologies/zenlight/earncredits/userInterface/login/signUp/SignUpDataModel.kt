@@ -14,7 +14,7 @@ class SignUpDataModel @Inject constructor(private val dataManager: AppDataManage
     /**
      * Checks the user's email and password in our database
      */
-    fun submitLoginCredentials(viewModel: SignUpViewModel, email: String, password: String) {
+    fun submitLoginCredentials(viewModel: SignUpViewModel,userName: String, email: String, password: String) {
 
         val db = FirebaseFirestore.getInstance()
         db.collection(USERS_COLLECTION)
@@ -29,7 +29,7 @@ class SignUpDataModel @Inject constructor(private val dataManager: AppDataManage
                         viewModel.callbacks?.showEmailAlreadyInUseAlert()
                     } else {
                         //add the user's details to the firestore db
-                        createFirebaseUser(viewModel,email,password)
+                        createFirebaseUser(viewModel,userName,email,password)
                        // addUserToFirebaseDatabase(viewModel,email,password)
                     }
 
@@ -43,25 +43,24 @@ class SignUpDataModel @Inject constructor(private val dataManager: AppDataManage
     /**
      * Creates a new user record in our Firebase database
      */
-    private fun addUserToFirebaseDatabase(viewModel: SignUpViewModel, email: String, password: String) {
+    private fun addUserToFirebaseDatabase(viewModel: SignUpViewModel, userName:String, email: String, password: String) {
 
         val db = FirebaseFirestore.getInstance()
         val timeStamp: Long = System.currentTimeMillis() / 1000
         val newUserRef = db.collection(USERS_COLLECTION).document()
         val newUserId: String = newUserRef.id
 
-
         val user = UserProfile()
         user.id  = newUserId
         user.email = email
-        user.userName = email.toLowerCase()
+        user.userName = userName
         user.password = password
         user.timestamp = timeStamp
-
 
         newUserRef.set(user)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    dataManager.getSharedPrefs().userName = userName
                     dataManager.getSharedPrefs().userEmail = email
                     dataManager.getSharedPrefs().userPassword = password
                     dataManager.getSharedPrefs().userId = newUserId
@@ -76,7 +75,7 @@ class SignUpDataModel @Inject constructor(private val dataManager: AppDataManage
     /**
      * Used if the user has never created an acouunt in Firebase Auth
      */
-    fun createFirebaseUser(viewModel: SignUpViewModel, email: String, password: String) {
+    fun createFirebaseUser(viewModel: SignUpViewModel, userName:String, email: String, password: String) {
 
         val mAuth = FirebaseAuth.getInstance()
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -84,7 +83,7 @@ class SignUpDataModel @Inject constructor(private val dataManager: AppDataManage
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     // val user = mAuth.currentUser
-                    addUserToFirebaseDatabase(viewModel,email,password)
+                    addUserToFirebaseDatabase(viewModel,userName,email,password)
                 } else {
                     val message = task.exception?.message?: "Authentication Failed"
                     viewModel.callbacks?.handleError("Error",message)

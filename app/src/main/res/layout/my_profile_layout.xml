@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <import type="android.view.View" />
+        
+        <variable
+                name="viewModel"
+                type="com.technologies.zenlight.earncredits.userInterface.home.myProfile.MyProfileViewModel" />
+    
+    </data>
+    
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black_color"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:padding="15dp">
+        
+        
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/arcade_font"
+                android:text="Game Options"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/transparent_white"
+                android:textStyle="bold" />
+        
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/arcade_font"
+                android:text="Edit Info"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/transparent_white" />
+        
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".3" />
+        
+        <EditText
+                android:id="@+id/et_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:fontFamily="@font/arcade_font"
+                android:hint="Enter User Name"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/white"
+                android:textColorHint="@color/transparent_white" />
+        
+        <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:fontFamily="@font/arcade_font"
+                android:hint="Enter Email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/white"
+                android:textColorHint="@color/transparent_white" />
+        
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="Enter Password"
+                android:textColorHint="@color/transparent_white"
+                android:theme="@style/TextInputStyle"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/white"
+                app:hintAnimationEnabled="false"
+                app:hintEnabled="false"
+                app:hintTextColor="@color/transparent_white">
+            
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/arcade_font"
+                    android:hint="Enter Password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/transparent_white" />
+        
+        </com.google.android.material.textfield.TextInputLayout>
+        
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:theme="@style/TextInputStyle"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/white"
+                app:hintAnimationEnabled="false"
+                app:hintEnabled="false"
+                app:hintTextColor="@color/transparent_white">
+            
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_re_enter_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/arcade_font"
+                    android:hint="Re-Enter Password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/transparent_white" />
+        
+        </com.google.android.material.textfield.TextInputLayout>
+        
+        
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_start_new_game"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:fontFamily="@font/arcade_font"
+                android:onClick="@{()-> viewModel.onSaveClicked()}"
+                android:text="Save Changes"
+                android:textAllCaps="false"
+                android:textAppearance="@style/Base.Widget.AppCompat.TextView"
+                android:textColor="@color/pac_yellow"
+                android:textSize="17sp"
+                app:rippleColor="@color/super_transparent_white" />
+        
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".7" />
+    
+    
+    </LinearLayout>
+
+</layout>

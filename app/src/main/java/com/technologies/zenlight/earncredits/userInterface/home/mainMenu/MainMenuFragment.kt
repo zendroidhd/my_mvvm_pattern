@@ -9,7 +9,10 @@ import com.technologies.zenlight.earncredits.BR
 import com.technologies.zenlight.earncredits.R
 import com.technologies.zenlight.earncredits.databinding.MainMenuLayoutBinding
 import com.technologies.zenlight.earncredits.userInterface.base.BaseFragment
+import com.technologies.zenlight.earncredits.userInterface.home.myProfile.MyProfileFragment
 import com.technologies.zenlight.earncredits.userInterface.login.loginActivity.LoginActivity
+import com.technologies.zenlight.earncredits.utils.addFragmentVertically
+import com.technologies.zenlight.earncredits.utils.replaceFragmentHorizontallyReversed
 import com.technologies.zenlight.earncredits.utils.showSignOutAlertDialog
 import com.technologies.zenlight.earncredits.utils.showToastShort
 
@@ -57,7 +60,11 @@ class MainMenuFragment : BaseFragment<MainMenuLayoutBinding, MainMenuViewModel>(
     }
 
     override fun onMyProfileClicked() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        baseActivity?.let {
+            val manager = it.supportFragmentManager
+            val fragment = MyProfileFragment.newInstance()
+            addFragmentVertically(fragment, manager, "MyProfile", null)
+        }
     }
 
     private fun exitGame() {

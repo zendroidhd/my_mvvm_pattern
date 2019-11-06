@@ -58,15 +58,16 @@ class SignUpFragment : BaseFragment<SignUpLayoutBinding, SignUpViewModel>(), Sig
     }
 
     override fun onStartNewGameClicked() {
+        val userName = dataBinding.etUserName.text.toString()
         val email = dataBinding.etEmail.text.toString()
         val passWord = dataBinding.etCode.text.toString()
         val reEnteredPassword = dataBinding.etReEnterCode.text.toString()
         viewModel?.let { it ->
-            if (!it.isCredentialsValid(email, passWord, reEnteredPassword)) {
-                showAlertDialog(activity, "Invalid Credentials", it.getInvalidCredentialsText(email, passWord, reEnteredPassword))
+            if (!it.isCredentialsValid(userName, email, passWord, reEnteredPassword)) {
+                showAlertDialog(activity, "Invalid Credentials", it.getInvalidCredentialsText(userName,email, passWord, reEnteredPassword))
             } else {
                 parentCallbacks?.showProgressSpinnerView()
-                it.submitLoginCredentials(email, passWord)
+                it.submitLoginCredentials(userName, email, passWord)
             }
         }
     }
@@ -81,9 +82,10 @@ class SignUpFragment : BaseFragment<SignUpLayoutBinding, SignUpViewModel>(), Sig
     }
 
     override fun onUserAddedToFirebaseDatabase() {
+        val userName = dataBinding.etUserName.text.toString()
         val email = dataBinding.etEmail.text.toString()
         val passWord = dataBinding.etCode.text.toString()
-        viewModel?.createFirebaseUser(email,passWord)
+        viewModel?.createFirebaseUser(userName,email,passWord)
     }
 
     override fun signUserIntoApp() {
@@ -100,8 +102,10 @@ class SignUpFragment : BaseFragment<SignUpLayoutBinding, SignUpViewModel>(), Sig
     }
 
     private fun saveCredentials() {
+        val userName = dataBinding.etUserName.text.toString()
         val email = dataBinding.etEmail.text.toString()
         val passWord = dataBinding.etCode.text.toString()
+        dataManager.getSharedPrefs().userName = userName
         dataManager.getSharedPrefs().userEmail = email
         dataManager.getSharedPrefs().isLoggedIn = true
         dataManager.getSharedPrefs().userPassword = passWord

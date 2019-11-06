@@ -1,29 +1,27 @@
-package com.technologies.zenlight.earncredits.userInterface.login.signUp
+package com.technologies.zenlight.earncredits.userInterface.home.myProfile
 
+import com.technologies.zenlight.earncredits.data.model.api.UserProfile
 import com.technologies.zenlight.earncredits.userInterface.base.BaseViewModel
 import com.technologies.zenlight.earncredits.utils.NO_NETWORK_BODY
 import com.technologies.zenlight.earncredits.utils.NO_NETWORK_TITLE
 import com.technologies.zenlight.earncredits.utils.isConnected
 import com.technologies.zenlight.earncredits.utils.isEmailValid
 
-class SignUpViewModel : BaseViewModel() {
+class MyProfileViewModel : BaseViewModel() {
 
-    /*********** Getters and Setters ********/
 
-    var dataModel: SignUpDataModel? = null
-    var callbacks: SignUpCallbacks? = null
+    /******* Getters and Setters ***********/
 
-    /********* OnClick Listeners *********/
+    var callbacks: MyProfileCallbacks? = null
+    var dataModel: MyProfileDataModel? = null
+    var userProfile: UserProfile? = null
 
-    fun onStartNewGameClicked () {
-        callbacks?.onStartNewGameClicked()
-    }
 
-    fun onExitClicked() {
-        callbacks?.onExitClicked()
-    }
+    /******* OnClick Listeners **********/
 
-    /******* Business Logic ********/
+    fun onSaveClicked() = callbacks?.onSaveClicked()
+
+    /******** Business Logic *********/
 
     fun isCredentialsValid(userName: String, email: String, password: String, reEnteredPassword: String): Boolean {
         return isEmailValid(email)
@@ -47,26 +45,25 @@ class SignUpViewModel : BaseViewModel() {
         }
     }
 
-    /********* DataModel Requests ********/
+    /******** DataModel Requests **********/
 
-    fun submitLoginCredentials(userName: String,email: String, password: String) {
-        callbacks?.getActivityContext()?.let {activity->
-            if (isConnected(activity)){
-                dataModel?.submitLoginCredentials(this, userName, email, password)
+    fun getUserProfile() {
+        callbacks?.getActivityContext()?.let { activity ->
+            if (isConnected(activity)) {
+                dataModel?.getUserProfile(this)
             } else {
                 callbacks?.handleError(NO_NETWORK_TITLE, NO_NETWORK_BODY)
             }
         }
     }
 
-    fun createFirebaseUser(userName: String,email: String, password: String) {
-        callbacks?.getActivityContext()?.let {activity->
-            if (isConnected(activity)){
-                dataModel?.createFirebaseUser(this,userName,email,password)
+    fun updateProfile(userName: String, email: String, password: String) {
+        callbacks?.getActivityContext()?.let { activity ->
+            if (isConnected(activity)) {
+                dataModel?.updateProfile(this,userName,email,password)
             } else {
                 callbacks?.handleError(NO_NETWORK_TITLE, NO_NETWORK_BODY)
             }
         }
     }
-
 }

@@ -19,34 +19,30 @@
         
             <TextView
                     android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    tools:text="Go to a movie with the wife"
+                    tools:text="Go to "
                     android:textColor="@color/arcade_red"
                     android:textSize="15sp"
                     android:lineSpacingExtra="7dp"
                     android:layout_gravity="center_vertical"
                     style="@style/ArcadeTextView"
                     android:layout_marginEnd="20dp"/>
-        
-            <View
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="1dp"/>
-        
+            
             <ImageView
                     android:id="@+id/iv_complete"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@drawable/blue_toggle_button"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     />
     
         </LinearLayout>
         
         
         <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp">

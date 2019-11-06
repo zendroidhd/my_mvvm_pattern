@@ -51,6 +51,24 @@
                 android:layout_weight=".3"/>
     
         <EditText
+                android:id="@+id/et_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:cursorVisible="true"
+                android:hint="Enter User Name"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/white"
+                android:textColorHint="@color/transparent_white"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:fontFamily="@font/arcade_font"
+                android:layout_marginBottom="5dp"
+                />
+    
+        <EditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

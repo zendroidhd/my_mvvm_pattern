@@ -29,6 +29,14 @@ class AppSharedPrefs @Inject constructor(private val sharedPreferences: SharedPr
             .putString(USER_PASSWORD, id)
             .apply()
 
+    var userName: String?
+        get() = sharedPreferences
+            .getString(USER_NAME, "")
+        set(id) = sharedPreferences
+            .edit()
+            .putString(USER_NAME, id)
+            .apply()
+
     var isLoggedIn: Boolean
         get() = sharedPreferences
             .getBoolean(USER_LOGGED_IN,false)
@@ -39,6 +47,7 @@ class AppSharedPrefs @Inject constructor(private val sharedPreferences: SharedPr
 
 
     companion object {
+        private const val USER_NAME = "userName"
         private const val USER_EMAIL = "userEmail"
         private const val USER_PASSWORD = "userPassword"
         private const val USER_ID = "userId"
