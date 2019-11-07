@@ -9,6 +9,8 @@ import com.technologies.zenlight.earncredits.BR
 import com.technologies.zenlight.earncredits.R
 import com.technologies.zenlight.earncredits.databinding.MainMenuLayoutBinding
 import com.technologies.zenlight.earncredits.userInterface.base.BaseFragment
+import com.technologies.zenlight.earncredits.userInterface.home.gameOptions.GameOptionsFragment
+import com.technologies.zenlight.earncredits.userInterface.home.leaderboards.LeaderboardsFragment
 import com.technologies.zenlight.earncredits.userInterface.home.myProfile.MyProfileFragment
 import com.technologies.zenlight.earncredits.userInterface.login.loginActivity.LoginActivity
 import com.technologies.zenlight.earncredits.utils.addFragmentVertically
@@ -48,11 +50,19 @@ class MainMenuFragment : BaseFragment<MainMenuLayoutBinding, MainMenuViewModel>(
     }
 
     override fun onGameOptionsClicked() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        baseActivity?.let {
+            val manager = it.supportFragmentManager
+            val fragment = GameOptionsFragment.newInstance()
+            addFragmentVertically(fragment, manager, "GameOptions", null)
+        }
     }
 
     override fun onLeaderBoardsClicked() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        baseActivity?.let {
+            val manager = it.supportFragmentManager
+            val fragment = LeaderboardsFragment.newInstance()
+            addFragmentVertically(fragment, manager, "Leaderboards", null)
+        }
     }
 
     override fun onDailyCheatCodeClicked() {

@@ -28,20 +28,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/arcade_font"
-                android:text="Game Options"
+                android:text="Edit Info"
+                android:layout_marginTop="15dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/transparent_white"
                 android:textStyle="bold" />
         
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/arcade_font"
-                android:text="Edit Info"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="@color/transparent_white" />
         
         <View
                 android:layout_width="match_parent"

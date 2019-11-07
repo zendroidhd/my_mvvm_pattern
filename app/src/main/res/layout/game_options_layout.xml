@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <import type="android.view.View" />
+        
+        <variable
+                name="viewModel"
+                type="com.technologies.zenlight.earncredits.userInterface.home.gameOptions.GameOptionsViewModel" />
+    
+    </data>
+    
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black_color"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:padding="15dp">
+        
+        
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/arcade_font"
+                android:text="Game Options"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/transparent_white"
+                android:textStyle="bold" />
+        
+        
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:fontFamily="@font/arcade_font"
+                android:text="Difficulty:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="@color/transparent_white"
+                android:textSize="14sp" />
+        
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
+            
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_easy"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/arcade_font"
+                    android:onClick="@{()-> viewModel.onEasyClicked()}"
+                    android:text="Easy"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/pac_yellow"
+                    app:rippleColor="@color/super_transparent_white" />
+            
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_normal"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/arcade_font"
+                    android:onClick="@{()-> viewModel.onNormalClicked()}"
+                    android:text="Normal"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/transparent_white"
+                    app:rippleColor="@color/super_transparent_white" />
+            
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_hard"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/arcade_font"
+                    android:onClick="@{()-> viewModel.onHardClicked()}"
+                    android:text="Hard"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/transparent_white"
+                    app:rippleColor="@color/super_transparent_white" />
+        
+        </LinearLayout>
+    
+        <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/arcade_font"
+                tools:text="When a challenge expires, you will lose all of your credits"
+                android:lineSpacingExtra="15dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="#66ffffff" />
+        
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_start_new_game"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arcade_font"
+                android:onClick="@{()-> viewModel.onSaveChangesClicked()}"
+                android:text="Save Changes"
+                android:textAllCaps="false"
+                android:textAppearance="@style/Base.Widget.AppCompat.TextView"
+                android:textColor="@color/pac_yellow"
+                android:textSize="14sp"
+                app:rippleColor="@color/super_transparent_white" />
+    
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+    
+    </LinearLayout>
+
+</layout>

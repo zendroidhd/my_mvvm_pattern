@@ -1,5 +1,6 @@
 package com.technologies.zenlight.earncredits.userInterface.home.challenges
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.technologies.zenlight.earncredits.data.AppDataManager
 import com.technologies.zenlight.earncredits.data.model.api.Challenges
@@ -25,6 +26,7 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
                     if (userProfiles.isNotEmpty()) {
                         viewModel.userProfile = userProfiles[0]
                         pushUserProfileToObservers(userProfiles[0])
+                        getAllChallenges(viewModel)
                     }
 
                 } else {
@@ -34,7 +36,7 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
             }
     }
 
-    fun getAllChallenges(viewModel: ChallengesViewModel) {
+    private fun getAllChallenges(viewModel: ChallengesViewModel) {
         val userId = dataManager.getSharedPrefs().userId
         val db = FirebaseFirestore.getInstance()
         viewModel.challengesList.clear()
@@ -43,11 +45,11 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    val challengeArrayList = ArrayList<Challenges>()
                     val challenges = task.result!!.toObjects(Challenges::class.java)
+                    challengeArrayList.addAll(challenges)
                     if (challenges.isNotEmpty()) {
-                        viewModel.challengesList.addAll(challenges)
-                        viewModel.callbacks?.onChallengesReturnedSuccessfully()
-
+                        checkExpiredChallenges(viewModel, challengeArrayList)
                     } else {
                         viewModel.callbacks?.showNoChallengesFoundPage()
                     }
@@ -59,6 +61,68 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
             }
     }
 
+    private fun checkExpiredChallenges(viewModel: ChallengesViewModel, challenges: ArrayList<Challenges>) {
+        var totalCredits = viewModel.userProfile?.credits ?: 0
+        viewModel.challengesList.clear()
+        val difficulty = dataManager.getSharedPrefs().difficulty
+
+        if (difficulty != "easy") {
+            for (challenge in challenges) {
+                if (challenge.getDaysLeftToComplete() < 0 && !challenge.isDeducted) {
+                    challenge.isDeducted = true
+                    if (difficulty == "normal") {
+                        totalCredits -= challenge.credit
+                    } else {
+                        totalCredits = 0
+                    }
+                    updateChallenge(challenge)
+                }
+            }
+
+            if (totalCredits < 0) {
+                totalCredits = 0
+            }
+
+            viewModel.challengesList.addAll(challenges)
+
+            viewModel.userProfile?.let {
+                it.credits = totalCredits
+                updateUserProfile(viewModel, it)
+            }
+
+        } else {
+            viewModel.challengesList.addAll(challenges)
+            viewModel.callbacks?.onChallengesReturnedSuccessfully()
+        }
+    }
+
+    private fun updateChallenge(challenge: Challenges) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection(CHALLENGES_COLLECTION)
+            .document(challenge.id)
+            .set(challenge)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.i("TAG", "success")
+                }
+            }
+    }
+
+    private fun updateUserProfile(viewModel: ChallengesViewModel, userProfile: UserProfile) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection(USERS_COLLECTION)
+            .document(userProfile.id)
+            .set(userProfile)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    pushUserProfileToObservers(userProfile)
+                    viewModel.callbacks?.onChallengesReturnedSuccessfully()
+                } else {
+                    val message = task.exception?.message ?: "Authentication Failed (F)"
+                    viewModel.callbacks?.handleError("Error", message)
+                }
+            }
+    }
 
     /**
      * This for when a user manually deletes a challenge. Their total credits is reduced by
@@ -90,7 +154,7 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
         }
     }
 
-     fun increaseCreditsForCompletedChallenge(viewModel: ChallengesViewModel, challenge: Challenges) {
+    fun increaseCreditsForCompletedChallenge(viewModel: ChallengesViewModel, challenge: Challenges) {
         viewModel.userProfile?.let { profile ->
             val currentCredits = profile.credits
             val newCredits = currentCredits + challenge.credit
@@ -118,7 +182,7 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
     /**
      * Removes the challenge from our Db
      */
-     fun removeChallenge(viewModel: ChallengesViewModel, challenge: Challenges) {
+    fun removeChallenge(viewModel: ChallengesViewModel, challenge: Challenges) {
         val db = FirebaseFirestore.getInstance()
         db.collection(CHALLENGES_COLLECTION)
             .document(challenge.id)

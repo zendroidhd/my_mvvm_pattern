@@ -10,6 +10,7 @@ class Challenges {
     var authorId = ""
     var description = ""
     var isComplete = false
+    var isDeducted = false
     var credit = 0
     var createdOn: Long = 0
     var completeBy: Long = 0

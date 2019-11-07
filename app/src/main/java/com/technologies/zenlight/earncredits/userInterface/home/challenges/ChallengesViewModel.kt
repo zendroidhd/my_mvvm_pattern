@@ -60,7 +60,6 @@ class ChallengesViewModel : BaseViewModel() {
         callbacks?.getActivityContext()?.let { activity ->
             if (isConnected(activity)) {
                 dataModel?.getUserProfile(this)
-                dataModel?.getAllChallenges(this)
             } else {
                 callbacks?.handleError(NO_NETWORK_TITLE, NO_NETWORK_BODY)
             }

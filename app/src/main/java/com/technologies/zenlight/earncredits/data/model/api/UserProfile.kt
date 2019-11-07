@@ -10,7 +10,7 @@ class UserProfile {
     var imageUrl = ""
     var isPasswordReset = false
     var password = ""
-    var difficulty = "normal"
+    var difficulty = "easy"
     var email = ""
     var timestamp: Long = 0
 }

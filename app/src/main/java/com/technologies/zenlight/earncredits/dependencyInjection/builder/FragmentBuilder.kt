@@ -2,7 +2,9 @@ package com.technologies.zenlight.earncredits.dependencyInjection.builder
 
 import com.technologies.zenlight.earncredits.userInterface.home.challenges.ChallengesFragment
 import com.technologies.zenlight.earncredits.userInterface.home.challenges.createNewChallenge.CreateChallengeFragment
+import com.technologies.zenlight.earncredits.userInterface.home.gameOptions.GameOptionsFragment
 import com.technologies.zenlight.earncredits.userInterface.home.homeFragment.HomeFragment
+import com.technologies.zenlight.earncredits.userInterface.home.leaderboards.LeaderboardsFragment
 import com.technologies.zenlight.earncredits.userInterface.home.mainMenu.MainMenuFragment
 import com.technologies.zenlight.earncredits.userInterface.home.myProfile.MyProfileFragment
 import com.technologies.zenlight.earncredits.userInterface.home.powerUpFragment.PowerUpsFragment
@@ -45,4 +47,10 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     internal abstract fun bindMyProfileFragment(): MyProfileFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bindLeaderboardsFragment(): LeaderboardsFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bindGameOptionsFragment(): GameOptionsFragment
 }

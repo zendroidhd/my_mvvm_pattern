@@ -37,6 +37,14 @@ class AppSharedPrefs @Inject constructor(private val sharedPreferences: SharedPr
             .putString(USER_NAME, id)
             .apply()
 
+    var difficulty: String?
+        get() = sharedPreferences
+            .getString(DIFFICULTY_SELECTED, "")
+        set(id) = sharedPreferences
+            .edit()
+            .putString(DIFFICULTY_SELECTED, id)
+            .apply()
+
     var isLoggedIn: Boolean
         get() = sharedPreferences
             .getBoolean(USER_LOGGED_IN,false)
@@ -52,6 +60,7 @@ class AppSharedPrefs @Inject constructor(private val sharedPreferences: SharedPr
         private const val USER_PASSWORD = "userPassword"
         private const val USER_ID = "userId"
         private const val USER_LOGGED_IN = "userLoggedIn"
+        private const val DIFFICULTY_SELECTED = "Difficulty"
         val FIREBASE_DEVICE_TOKEN = "fireBaseDeviceToken"
     }
 }
