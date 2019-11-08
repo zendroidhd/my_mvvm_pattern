@@ -37,6 +37,30 @@ class AppSharedPrefs @Inject constructor(private val sharedPreferences: SharedPr
             .putString(USER_NAME, id)
             .apply()
 
+    var quoteDayInYear: String?
+        get() = sharedPreferences
+            .getString(QUOTE_DAY_IN_YEAR, "")
+        set(id) = sharedPreferences
+            .edit()
+            .putString(QUOTE_DAY_IN_YEAR, id)
+            .apply()
+
+    var savedQuote: String?
+        get() = sharedPreferences
+            .getString(SAVED_QUOTE, "")
+        set(id) = sharedPreferences
+            .edit()
+            .putString(SAVED_QUOTE, id)
+            .apply()
+
+    var savedAuthor: String?
+        get() = sharedPreferences
+            .getString(SAVED_AUTHOR, "")
+        set(id) = sharedPreferences
+            .edit()
+            .putString(SAVED_AUTHOR, id)
+            .apply()
+
     var difficulty: String?
         get() = sharedPreferences
             .getString(DIFFICULTY_SELECTED, "")
@@ -61,6 +85,9 @@ class AppSharedPrefs @Inject constructor(private val sharedPreferences: SharedPr
         private const val USER_ID = "userId"
         private const val USER_LOGGED_IN = "userLoggedIn"
         private const val DIFFICULTY_SELECTED = "Difficulty"
+        private const val QUOTE_DAY_IN_YEAR = "quoteDayInYear"
+        private const val SAVED_QUOTE = "savedQuote"
+        private const val SAVED_AUTHOR = "savedAuthor"
         val FIREBASE_DEVICE_TOKEN = "fireBaseDeviceToken"
     }
 }
