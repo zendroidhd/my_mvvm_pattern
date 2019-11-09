@@ -7,6 +7,8 @@ interface PowerUpsCallbacks {
 
     fun handleError(title: String, body: String)
 
+    fun onPowerUpListRowClicked(powerUps: PowerUps)
+
     fun onPowerUpsReturnedSuccessfully()
 
     fun showNoPowerUpsFoundPage()
@@ -19,7 +21,7 @@ interface PowerUpsCallbacks {
 
     fun onPowerUpSuccessfullyUsed(powerUps: PowerUps)
 
-    fun onDeletePowerupClicked(powerUps: PowerUps)
+    fun onDeletePowerUpClicked(powerUps: PowerUps)
 
     fun showNotEnoughCreditsAlert()
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.technologies.zenlight.earncredits.BR
 import com.technologies.zenlight.earncredits.R
@@ -17,6 +18,7 @@ import com.technologies.zenlight.earncredits.userInterface.base.BaseFragment
 import com.technologies.zenlight.earncredits.userInterface.home.challenges.createNewChallenge.CreateChallengeFragment
 import com.technologies.zenlight.earncredits.userInterface.home.homeActivity.HomeActivityCallbacks
 import com.technologies.zenlight.earncredits.userInterface.home.powerUpFragment.createNewPowerup.CreateNewPowerupFragment
+import com.technologies.zenlight.earncredits.userInterface.home.powerUpFragment.detailView.PowerUpDetailFragment
 import com.technologies.zenlight.earncredits.utils.addFragmentFadeIn
 import com.technologies.zenlight.earncredits.utils.showAlertDialog
 import com.technologies.zenlight.earncredits.utils.showDeletePowerUpAlertDialog
@@ -85,6 +87,7 @@ class PowerUpsFragment: BaseFragment<PowerUpsLayoutBinding, PowerUpsViewModel>()
         powerUpsList.clear()
         viewModel?.let {
             powerUpsList.addAll(it.powerUpsList)
+            powerUpsList.sortWith(Comparator { o1, o2 -> o1.timestamp.compareTo(o2.timestamp) })
             powerUpsAdapter?.notifyDataSetChanged()
         }
 
@@ -109,6 +112,14 @@ class PowerUpsFragment: BaseFragment<PowerUpsLayoutBinding, PowerUpsViewModel>()
         return activity
     }
 
+    override fun onPowerUpListRowClicked(powerUps: PowerUps) {
+        baseActivity?.let {
+            val manager = it.supportFragmentManager
+            val fragment = PowerUpDetailFragment.newInstance(this,powerUps)
+            addFragmentFadeIn(fragment,manager,"PowerUpDetails",null)
+        }
+    }
+
     override fun onAddNewPowerUpClicked() {
         baseActivity?.let {
             val manager = it.supportFragmentManager
@@ -118,11 +129,13 @@ class PowerUpsFragment: BaseFragment<PowerUpsLayoutBinding, PowerUpsViewModel>()
     }
 
     override fun onCompletePowerUpClicked(powerUps: PowerUps) {
-        showUserPowerupAlertDialog(activity,powerUps,powerUps.cost,::usePowerUp)
+        parentCallbacks?.showProgressSpinnerView()
+        viewModel?.decreaseCreditsForUsedPowerup(powerUps)
     }
 
-    override fun onDeletePowerupClicked(powerUps: PowerUps) {
-        showDeletePowerUpAlertDialog(activity,powerUps,::deletePowerUp)
+    override fun onDeletePowerUpClicked(powerUps: PowerUps) {
+        parentCallbacks?.showProgressSpinnerView()
+        viewModel?.removePowerup(powerUps)
     }
 
     override fun requestPowerUps() {
@@ -135,20 +148,11 @@ class PowerUpsFragment: BaseFragment<PowerUpsLayoutBinding, PowerUpsViewModel>()
         Log.d("Powerup","successfully used")
     }
 
-    private fun usePowerUp(powerUps: PowerUps) {
-        parentCallbacks?.showProgressSpinnerView()
-        viewModel?.decreaseCreditsForUsedPowerup(powerUps)
-    }
-
-    private fun deletePowerUp(powerUps: PowerUps) {
-        parentCallbacks?.showProgressSpinnerView()
-        viewModel?.removePowerup(powerUps)
-    }
 
     private fun setUpRecyclerView() {
         powerUpsAdapter = PowerUpsAdapter(powerUpsList,this)
         dataBinding.rvPowerUps.run {
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = GridLayoutManager(activity,2)
             adapter = powerUpsAdapter
         }
     }

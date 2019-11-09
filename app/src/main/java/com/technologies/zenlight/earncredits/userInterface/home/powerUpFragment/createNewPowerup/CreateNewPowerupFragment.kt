@@ -84,7 +84,14 @@ class CreateNewPowerupFragment: BaseFragment<CreateNewPowerupLayoutBinding, Crea
     override fun onCreateNewPowerupClicked() {
         val description = dataBinding.etDescription.text.toString()
         val cost = dataBinding.spinnerCost.selectedItem.toString()
-        var costInt = REMOVE_NON_DIGITS.replace(cost,"").toInt()
+        var costInt: Int
+
+        if (cost.contains("10x")) {
+            val newCost = cost.substringAfter("10x")
+            costInt = REMOVE_NON_DIGITS.replace(newCost,"").toInt()
+        } else {
+            costInt = REMOVE_NON_DIGITS.replace(cost,"").toInt()
+        }
 
         if (costInt == 1020) { costInt = 20 }
         //val creditAmount =

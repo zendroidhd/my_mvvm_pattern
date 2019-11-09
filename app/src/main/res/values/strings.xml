@@ -18,4 +18,14 @@
         <item>Mega Power-Up: 20</item>
         <item>10x Task: 40</item>
     </string-array>
+    
+    <string-array name="powerups_item_list">
+        <item>mushroom</item>
+        <item>fireball</item>
+        <item>shield</item>
+        <item>fruit</item>
+        <item>glove</item>
+        <item>pizza</item>
+    </string-array>
+    
 </resources>

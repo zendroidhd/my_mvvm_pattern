@@ -15,14 +15,24 @@ class PowerUpsAdapter(private val powerUps: ArrayList<PowerUps>, private val cal
     inner class PowerUpsViewHolder(val binding: PowerUpsListRowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(powerUp: PowerUps) {
             binding.tvTitle.text = powerUp.description
-            binding.tvCreditsValue.text = powerUp.cost.toString()
+            binding.tvCost.text = "Cost: ${powerUp.cost}"
+            setIcon(powerUp)
 
-            binding.ivComplete.setOnClickListener{
-                callbacks.onCompletePowerUpClicked(powerUp)
+            binding.layoutPowerUp.setOnClickListener{
+                callbacks.onPowerUpListRowClicked(powerUp)
             }
 
-            binding.btnDelete.setOnClickListener {
-                callbacks.onDeletePowerupClicked(powerUp)
+        }
+
+        private fun setIcon(powerUp: PowerUps) {
+            val context = binding.root.context
+            when {
+                powerUp.icon == "mushroom" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.mario_mushroom))
+                powerUp.icon == "shield" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.shield))
+                powerUp.icon == "fireball" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.hadouken))
+                powerUp.icon == "glove" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.boxing_glove))
+                powerUp.icon == "pizza" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.pizza))
+                else -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.ic_apple_power_up))
             }
         }
     }

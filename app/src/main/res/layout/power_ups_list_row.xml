@@ -1,93 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        xmlns:tools="http://schemas.android.com/tools">
     
-    
-    <LinearLayout
-            android:orientation="vertical"
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layout_power_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:background="@color/black_color"
-            android:padding="5dp">
-    
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:strokeColor="@color/dark_orange"
+            app:strokeWidth="2dp"
+            app:cardBackgroundColor="@color/transparent_black"
+            app:rippleColor="@color/transparent_white">
+        
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-        
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                tools:background="@color/black_color">
+    
+            <TextView
+                    android:id="@+id/tv_cost"
+                    style="@style/ArcadeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    android:background="@color/dark_orange"
+                    android:padding="10dp"
+                    tools:text="Cost: 2" />
+    
+            <ImageView
+                    android:id="@+id/iv_icon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="10dp"
+                    android:layout_gravity="center_horizontal"
+                    tools:src="@drawable/boxing_glove"/>
+    
             <TextView
                     android:id="@+id/tv_title"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    style="@style/ArcadeTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Go to "
-                    android:textColor="@color/arcade_red"
-                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_gravity="center_horizontal"
                     android:lineSpacingExtra="7dp"
-                    android:layout_gravity="center_vertical"
-                    style="@style/ArcadeTextView"
-                    android:layout_marginEnd="20dp"/>
-            
-            <ImageView
-                    android:id="@+id/iv_complete"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/blue_toggle_button"
-                    android:layout_gravity="center_vertical"
-                    />
-    
-        </LinearLayout>
-        
-        
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-            
-            <TextView
-                    android:id="@+id/tv_credits_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cost: "
-                    android:textColor="@color/white"
+                    android:maxLines="2"
+                    android:textColor="@color/arcade_red"
                     android:textSize="12sp"
-                    style="@style/ArcadeTextView"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"/>
+                    tools:text="Go to the movies with the wife jf jf jfjfj jfjfj" />
             
-            <TextView
-                    android:id="@+id/tv_credits_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="50"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    style="@style/ArcadeTextView"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"/>
-            
-            <View
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="1dp"/>
-    
-            <ImageButton
-                    android:id="@+id/btn_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:src="@drawable/ic_delete"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:tint="@color/transparent_white"
-                    android:theme="@style/AppTheme.ClearBackGroundWhiteRipple"
-                    />
+           
         
         </LinearLayout>
     
-    </LinearLayout>
-
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>
