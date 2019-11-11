@@ -35,7 +35,11 @@ class SignUpDataModel @Inject constructor(private val dataManager: AppDataManage
 
                 } else {
                     val message = task.exception?.message?: "Please try again"
-                    viewModel.callbacks?.handleError("Error", message)
+                    if (message.contains("insufficient permissions")) {
+                        createFirebaseUser(viewModel,userName,email,password)
+                    } else {
+                        viewModel.callbacks?.handleError("Error", message)
+                    }
                 }
             }
     }

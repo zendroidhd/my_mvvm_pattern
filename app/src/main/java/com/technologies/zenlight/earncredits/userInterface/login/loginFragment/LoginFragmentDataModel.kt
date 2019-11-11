@@ -26,7 +26,11 @@ class LoginFragmentDataModel @Inject constructor(private val dataManager: AppDat
 
                 } else {
                     val message = task.exception?.message?: "Please try again"
-                    viewModel.callbacks?.handleError("Error", message)
+                    if (message.contains("insufficient permissions")) {
+                        viewModel.callbacks?.showSignUpAlert()
+                    } else {
+                        viewModel.callbacks?.handleError("Error", message)
+                    }
                 }
             }
     }
