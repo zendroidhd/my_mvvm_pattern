@@ -26,19 +26,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp">
-            
+    
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+        
+                <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_cherry_power_up"/>
+        
                 <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Power Ups"
-                android:textColor="@color/white"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                style="@style/ArcadeTextView"
-                android:layout_gravity="center_vertical"
-                android:drawableStart="@drawable/ic_cherry_power_up"
-                android:gravity="center_vertical"
-                android:drawablePadding="10dp"
-                android:scaleY="1.1"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Power Ups"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        style="@style/ArcadeTextView"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="10dp"/>
+    
+            </LinearLayout>
     
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:id="@+id/swipe_container"

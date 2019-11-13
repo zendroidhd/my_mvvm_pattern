@@ -2,6 +2,7 @@ package com.technologies.zenlight.earncredits.data.model.api
 
 import com.google.firebase.firestore.Exclude
 import com.technologies.zenlight.earncredits.utils.dateFormatter
+import com.technologies.zenlight.earncredits.utils.timeFormatter
 import java.util.*
 
 class Challenges {
@@ -9,11 +10,12 @@ class Challenges {
     var id = ""
     var authorId = ""
     var description = ""
-    var isComplete = false
+    var isDeleted = false
     var isDeducted = false
     var credit = 0
     var createdOn: Long = 0
     var completeBy: Long = 0
+    var actualCompletionDate: Long = 0
 
 
     @Exclude
@@ -24,10 +26,31 @@ class Challenges {
     }
 
     @Exclude
+    fun getActualCompletedTime(): String {
+        val date = Date()
+        date.time = actualCompletionDate * 1000
+        return timeFormatter.format(date)
+    }
+
+    @Exclude
     fun getCreatedOnDate(): String {
         val date = Date()
         date.time = createdOn * 1000
         return dateFormatter.format(date)
+    }
+
+    @Exclude
+    fun wasCompletedToday(): Boolean {
+        return if (actualCompletionDate == 0L) {
+            false
+        } else {
+            val calendar = Calendar.getInstance()
+            val dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
+            calendar.timeInMillis = actualCompletionDate * 1000
+            val completedDayOfYear = calendar.get(Calendar.DAY_OF_YEAR)
+
+            completedDayOfYear == dayOfYear
+        }
     }
 
     @Exclude

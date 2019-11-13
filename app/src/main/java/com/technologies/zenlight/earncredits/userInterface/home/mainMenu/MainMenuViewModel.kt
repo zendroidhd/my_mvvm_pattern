@@ -14,6 +14,10 @@ class MainMenuViewModel: BaseViewModel() {
 
     /********* OnClick Listeners *********/
 
+    fun onHistoryClicked() {
+        callbacks?.onHistoryClicked()
+    }
+
     fun onExitGameClicked(){
         callbacks?.onExitGameClicked()
     }

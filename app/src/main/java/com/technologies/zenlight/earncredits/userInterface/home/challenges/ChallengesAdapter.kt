@@ -18,7 +18,7 @@ class ChallengesAdapter(private val challenges: ArrayList<Challenges>, private v
             binding.tvTitle.text = challenge.description
             binding.tvCompletedValue.text = challenge.getCompleteByDate()
             binding.tvCreatedValue.text = challenge.getCreatedOnDate()
-            binding.tvCreditsValue.text = challenge.credit.toString()
+            binding.tvCreditsValue.text = "Credtis: ${challenge.credit}"
 
             binding.ivComplete.setOnClickListener{
                 callbacks.onCompleteChallengeClicked(challenge)

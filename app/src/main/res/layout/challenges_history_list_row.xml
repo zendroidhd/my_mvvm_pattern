@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layout_power_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            app:cardBackgroundColor="@color/transparent_black"
+            app:rippleColor="@color/transparent_white"
+            app:strokeColor="@color/dark_orange"
+            app:strokeWidth="2dp">
+        
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:background="@color/black_color">
+    
+            <TextView
+                    android:id="@+id/tv_cost"
+                    style="@style/ArcadeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    android:background="@color/dark_orange"
+                    android:padding="10dp"
+                    tools:text="Credits: 2" />
+            
+            
+            <TextView
+                    android:id="@+id/tv_title"
+                    style="@style/ArcadeTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="7dp"
+                    android:textColor="@color/pac_yellow"
+                    android:textSize="10sp"
+                    tools:text="Read 10 Pages of Think and Grow Rich" />
+            
+            <TextView
+                    android:id="@+id/tv_completed_time"
+                    style="@style/ArcadeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="15dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    tools:text="-9:45 AM" />
+        
+        
+        </LinearLayout>
+    
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

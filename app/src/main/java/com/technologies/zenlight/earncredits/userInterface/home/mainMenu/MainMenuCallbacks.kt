@@ -4,6 +4,8 @@ import android.app.Activity
 
 interface MainMenuCallbacks {
 
+    fun onHistoryClicked()
+
     fun onNewQuotesClicked()
 
     fun onMyProfileClicked()

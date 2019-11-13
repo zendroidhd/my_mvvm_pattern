@@ -1,5 +1,6 @@
 package com.technologies.zenlight.earncredits.userInterface.home.powerUpFragment
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.technologies.zenlight.earncredits.data.AppDataManager
 import com.technologies.zenlight.earncredits.data.model.api.Challenges
@@ -15,27 +16,6 @@ class PowerUpsDataModel @Inject constructor(private val dataManager: AppDataMana
 
 
 
-    fun getUserProfile(viewModel: PowerUpsViewModel) {
-        val userId = dataManager.getSharedPrefs().userId
-        val db = FirebaseFirestore.getInstance()
-        db.collection(USERS_COLLECTION)
-            .whereEqualTo("id", userId)
-            .get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val userProfiles = task.result!!.toObjects(UserProfile::class.java)
-                    if (userProfiles.isNotEmpty()) {
-                        viewModel.userProfile = userProfiles[0]
-                        pushUserProfileToObservers(userProfiles[0])
-                    }
-                } else {
-                    val message = task.exception?.message ?: "Authentication Failed (F)"
-                    viewModel.callbacks?.handleError("Error", message)
-                }
-            }
-    }
-
-
     fun getAllPowerUps(viewModel: PowerUpsViewModel) {
         val userId = dataManager.getSharedPrefs().userId
         val db = FirebaseFirestore.getInstance()
@@ -47,7 +27,19 @@ class PowerUpsDataModel @Inject constructor(private val dataManager: AppDataMana
                 if (task.isSuccessful) {
                     val powerUps = task.result!!.toObjects(PowerUps::class.java)
                     if (powerUps.isNotEmpty()) {
-                        viewModel.powerUpsList.addAll(powerUps)
+
+                        for (powerUp in powerUps) {
+
+                            if (powerUp.isDeleted) {
+                                if (!powerUp.wasCompletedToday()) {
+                                    removePowerup(powerUp)
+                                }
+
+                            } else {
+                                viewModel.powerUpsList.add(powerUp)
+                            }
+                        }
+
                         viewModel.callbacks?.onPowerUpsReturnedSuccessfully()
 
                     } else {
@@ -79,7 +71,7 @@ class PowerUpsDataModel @Inject constructor(private val dataManager: AppDataMana
                         if (task.isSuccessful) {
                             pushUserProfileToObservers(profile)
                             viewModel.callbacks?.onPowerUpSuccessfullyUsed(powerUps)
-                            removePowerup(viewModel, powerUps)
+                            setPowerupAsDeleted(viewModel,powerUps)
 
                         } else {
                             val message = task.exception?.message ?: "Error updating profile"
@@ -90,14 +82,16 @@ class PowerUpsDataModel @Inject constructor(private val dataManager: AppDataMana
         }
     }
 
-    /**
-     * Removes the challenge from our Db
-     */
-    fun removePowerup(viewModel: PowerUpsViewModel, powerUps: PowerUps) {
+
+
+    fun setPowerupAsDeleted(viewModel: PowerUpsViewModel, powerUps: PowerUps) {
+        val completedTimeStamp: Long = System.currentTimeMillis() / 1000
+        powerUps.isDeleted = true
+        powerUps.actualUseDate = completedTimeStamp
         val db = FirebaseFirestore.getInstance()
         db.collection(POWERUPS_COLLECTION)
             .document(powerUps.id)
-            .delete()
+            .set(powerUps)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     viewModel.powerUpsList.remove(powerUps)
@@ -105,6 +99,23 @@ class PowerUpsDataModel @Inject constructor(private val dataManager: AppDataMana
                 } else {
                     val message = task.exception?.message ?: "Authentication Failed (F)"
                     viewModel.callbacks?.handleError("Error", message)
+                }
+            }
+    }
+
+    /**
+     *
+     */
+    fun removePowerup(powerUps: PowerUps) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection(POWERUPS_COLLECTION)
+            .document(powerUps.id)
+            .delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.i("TAG", "success")
+                } else {
+                    Log.i("TAG", "unable to delete")
                 }
             }
     }

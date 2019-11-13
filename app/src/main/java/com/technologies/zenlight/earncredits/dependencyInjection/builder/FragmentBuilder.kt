@@ -3,6 +3,9 @@ package com.technologies.zenlight.earncredits.dependencyInjection.builder
 import com.technologies.zenlight.earncredits.userInterface.home.challenges.ChallengesFragment
 import com.technologies.zenlight.earncredits.userInterface.home.challenges.createNewChallenge.CreateChallengeFragment
 import com.technologies.zenlight.earncredits.userInterface.home.gameOptions.GameOptionsFragment
+import com.technologies.zenlight.earncredits.userInterface.home.history.HistoryPagerFragment
+import com.technologies.zenlight.earncredits.userInterface.home.history.challengesHistory.ChallengesHistoryFragment
+import com.technologies.zenlight.earncredits.userInterface.home.history.powerUpsHistory.PowerUpsHistoryFragment
 import com.technologies.zenlight.earncredits.userInterface.home.homeFragment.HomeFragment
 import com.technologies.zenlight.earncredits.userInterface.home.leaderboards.LeaderboardsFragment
 import com.technologies.zenlight.earncredits.userInterface.home.mainMenu.MainMenuFragment
@@ -53,4 +56,13 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     internal abstract fun bindGameOptionsFragment(): GameOptionsFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bindHistoryPagerFragment(): HistoryPagerFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bindPowerUpsHistoryFragment(): PowerUpsHistoryFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bindChallengesHistoryFragment(): ChallengesHistoryFragment
 }

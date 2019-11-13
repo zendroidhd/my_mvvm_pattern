@@ -109,6 +109,22 @@
                     app:rippleColor="@color/super_transparent_white"
                     android:onClick="@{()-> viewModel.onLeaderBoardsClicked()}"
                     />
+    
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="History"
+                    android:textAllCaps="false"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/transparent_white"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:fontFamily="@font/arcade_font"
+                    app:rippleColor="@color/super_transparent_white"
+                    android:onClick="@{()-> viewModel.onHistoryClicked()}"
+                    />
         
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_cheat_codes"

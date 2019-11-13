@@ -8,10 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.orhanobut.logger.Logger
 import com.technologies.zenlight.earncredits.BR
 import com.technologies.zenlight.earncredits.R
 import com.technologies.zenlight.earncredits.data.model.api.Challenges
@@ -19,7 +16,6 @@ import com.technologies.zenlight.earncredits.databinding.ChallengesLayoutBinding
 import com.technologies.zenlight.earncredits.userInterface.base.BaseFragment
 import com.technologies.zenlight.earncredits.userInterface.home.challenges.createNewChallenge.CreateChallengeFragment
 import com.technologies.zenlight.earncredits.userInterface.home.homeActivity.HomeActivityCallbacks
-import com.technologies.zenlight.earncredits.userInterface.home.homeFragment.HomeFragmentCallbacks
 import com.technologies.zenlight.earncredits.utils.*
 import javax.inject.Inject
 
@@ -44,7 +40,6 @@ class ChallengesFragment: BaseFragment<ChallengesLayoutBinding, ChallengesViewMo
             return ChallengesFragment()
         }
     }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         parentCallbacks = context as HomeActivityCallbacks
@@ -72,7 +67,7 @@ class ChallengesFragment: BaseFragment<ChallengesLayoutBinding, ChallengesViewMo
             parentCallbacks?.let {
                 if (it.isLoading()) {
                     dataBinding.swipeContainer.isRefreshing = false
-                } else {
+              } else {
                     viewModel?.getAllChallenges()
                 }
             }
@@ -139,7 +134,7 @@ class ChallengesFragment: BaseFragment<ChallengesLayoutBinding, ChallengesViewMo
 
     private fun deleteChallenge(challenge: Challenges) {
         parentCallbacks?.showProgressSpinnerView()
-        viewModel?.removeChallenge(challenge)
+        viewModel?.deleteChallengeWithFeedback(challenge)
     }
 
 

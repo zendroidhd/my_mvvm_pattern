@@ -78,10 +78,10 @@ class PowerUpsViewModel : BaseViewModel() {
         }
     }
 
-        fun removePowerup(powerUps: PowerUps) {
+        fun setPowerupAsDeleted(powerUps: PowerUps) {
             callbacks?.getActivityContext()?.let { activity ->
                 if (isConnected(activity)) {
-                    dataModel?.removePowerup(this, powerUps)
+                    dataModel?.setPowerupAsDeleted(this, powerUps)
                 } else {
                     callbacks?.handleError(NO_NETWORK_TITLE, NO_NETWORK_BODY)
                 }

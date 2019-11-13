@@ -5,7 +5,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.technologies.zenlight.earncredits.data.AppDataManager
 import com.technologies.zenlight.earncredits.data.model.api.Challenges
 import com.technologies.zenlight.earncredits.data.model.api.UserProfile
-import com.technologies.zenlight.earncredits.userInterface.home.homeFragment.HomeFragmentViewModel
 import com.technologies.zenlight.earncredits.utils.CHALLENGES_COLLECTION
 import com.technologies.zenlight.earncredits.utils.USERS_COLLECTION
 import com.technologies.zenlight.earncredits.utils.pushUserProfileToObservers
@@ -65,17 +64,29 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
         var totalCredits = viewModel.userProfile?.credits ?: 0
         viewModel.challengesList.clear()
         val difficulty = dataManager.getSharedPrefs().difficulty
+        val filteredChallenges = ArrayList<Challenges>()
 
         if (difficulty != "easy") {
             for (challenge in challenges) {
-                if (challenge.getDaysLeftToComplete() < 0 && !challenge.isDeducted) {
-                    challenge.isDeducted = true
-                    if (difficulty == "normal") {
-                        totalCredits -= challenge.credit
-                    } else {
-                        totalCredits = 0
+
+                if (challenge.isDeleted) {
+                    //removes deleted challenges older than a day
+                    if (!challenge.wasCompletedToday()) {
+                        removeChallenge(challenge)
                     }
-                    updateChallenge(challenge)
+
+                } else {
+                    filteredChallenges.add(challenge)
+
+                    if (challenge.getDaysLeftToComplete() < 0 && !challenge.isDeducted) {
+                        challenge.isDeducted = true
+                        if (difficulty == "normal") {
+                            totalCredits -= challenge.credit
+                        } else {
+                            totalCredits = 0
+                        }
+                        updateChallenge(challenge)
+                    }
                 }
             }
 
@@ -83,7 +94,7 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
                 totalCredits = 0
             }
 
-            viewModel.challengesList.addAll(challenges)
+            viewModel.challengesList.addAll(filteredChallenges)
 
             viewModel.userProfile?.let {
                 it.credits = totalCredits
@@ -91,7 +102,21 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
             }
 
         } else {
-            viewModel.challengesList.addAll(challenges)
+
+            for (challenge in challenges) {
+
+                if (challenge.isDeleted) {
+                    //removes deleted challenges older than a day
+                    if (!challenge.wasCompletedToday()) {
+                        removeChallenge(challenge)
+                    }
+                } else {
+                    filteredChallenges.add(challenge)
+                }
+
+            }
+
+            viewModel.challengesList.addAll(filteredChallenges)
             viewModel.callbacks?.onChallengesReturnedSuccessfully()
         }
     }
@@ -144,7 +169,7 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         pushUserProfileToObservers(profile)
-                        removeChallenge(viewModel, challenge)
+                        setChallengeAsDeleted(viewModel, challenge)
 
                     } else {
                         val message = task.exception?.message ?: "Error updating profile"
@@ -168,7 +193,7 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         pushUserProfileToObservers(profile)
-                        removeChallenge(viewModel, challenge)
+                        setChallengeAsDeleted(viewModel, challenge)
 
                     } else {
                         val message = task.exception?.message ?: "Error updating profile"
@@ -178,15 +203,54 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
         }
     }
 
-
     /**
      * Removes the challenge from our Db
      */
-    fun removeChallenge(viewModel: ChallengesViewModel, challenge: Challenges) {
+    private fun removeChallenge(challenge: Challenges) {
         val db = FirebaseFirestore.getInstance()
         db.collection(CHALLENGES_COLLECTION)
             .document(challenge.id)
             .delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.i("TAG", "success")
+                } else {
+                    Log.i("TAG", "unable to delete")
+                }
+            }
+    }
+
+    /**
+     * Removes the challenge from our Db
+     */
+    fun removeChallengeWithFeedback(viewModel: ChallengesViewModel,challenge: Challenges) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection(CHALLENGES_COLLECTION)
+            .document(challenge.id)
+            .delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    viewModel.challengesList.remove(challenge)
+                    viewModel.callbacks?.onChallengesReturnedSuccessfully()
+                } else {
+                    val message = task.exception?.message ?: "Authentication Failed (F)"
+                    viewModel.callbacks?.handleError("Error", message)
+                }
+            }
+    }
+
+
+    /**
+     * Sets the challenge status as deleted
+     */
+    fun setChallengeAsDeleted(viewModel: ChallengesViewModel, challenge: Challenges) {
+        val db = FirebaseFirestore.getInstance()
+        val completedTimeStamp: Long = System.currentTimeMillis() / 1000
+        challenge.actualCompletionDate = completedTimeStamp
+        challenge.isDeleted = true
+        db.collection(CHALLENGES_COLLECTION)
+            .document(challenge.id)
+            .set(challenge)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     viewModel.challengesList.remove(challenge)

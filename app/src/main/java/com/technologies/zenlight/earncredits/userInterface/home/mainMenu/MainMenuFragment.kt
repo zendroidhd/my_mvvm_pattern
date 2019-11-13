@@ -12,6 +12,7 @@ import com.technologies.zenlight.earncredits.R
 import com.technologies.zenlight.earncredits.databinding.MainMenuLayoutBinding
 import com.technologies.zenlight.earncredits.userInterface.base.BaseFragment
 import com.technologies.zenlight.earncredits.userInterface.home.gameOptions.GameOptionsFragment
+import com.technologies.zenlight.earncredits.userInterface.home.history.HistoryPagerFragment
 import com.technologies.zenlight.earncredits.userInterface.home.homeActivity.HomeActivityCallbacks
 import com.technologies.zenlight.earncredits.userInterface.home.leaderboards.LeaderboardsFragment
 import com.technologies.zenlight.earncredits.userInterface.home.myProfile.MyProfileFragment
@@ -66,6 +67,14 @@ class MainMenuFragment : BaseFragment<MainMenuLayoutBinding, MainMenuViewModel>(
 
     override fun getActivityContext(): Activity? {
         return activity
+    }
+
+    override fun onHistoryClicked() {
+        baseActivity?.let {
+            val manager = it.supportFragmentManager
+            val fragment = HistoryPagerFragment.newInstance()
+            addFragmentVertically(fragment, manager, "HistoryFragment", null)
+        }
     }
 
     override fun onExitGameClicked() {

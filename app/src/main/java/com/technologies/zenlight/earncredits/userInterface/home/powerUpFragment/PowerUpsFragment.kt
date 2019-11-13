@@ -9,20 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.technologies.zenlight.earncredits.BR
 import com.technologies.zenlight.earncredits.R
 import com.technologies.zenlight.earncredits.data.model.api.PowerUps
 import com.technologies.zenlight.earncredits.databinding.PowerUpsLayoutBinding
 import com.technologies.zenlight.earncredits.userInterface.base.BaseFragment
-import com.technologies.zenlight.earncredits.userInterface.home.challenges.createNewChallenge.CreateChallengeFragment
 import com.technologies.zenlight.earncredits.userInterface.home.homeActivity.HomeActivityCallbacks
 import com.technologies.zenlight.earncredits.userInterface.home.powerUpFragment.createNewPowerup.CreateNewPowerupFragment
 import com.technologies.zenlight.earncredits.userInterface.home.powerUpFragment.detailView.PowerUpDetailFragment
 import com.technologies.zenlight.earncredits.utils.addFragmentFadeIn
 import com.technologies.zenlight.earncredits.utils.showAlertDialog
-import com.technologies.zenlight.earncredits.utils.showDeletePowerUpAlertDialog
-import com.technologies.zenlight.earncredits.utils.showUserPowerupAlertDialog
 import javax.inject.Inject
 
 class PowerUpsFragment: BaseFragment<PowerUpsLayoutBinding, PowerUpsViewModel>(), PowerUpsCallbacks {
@@ -135,7 +131,7 @@ class PowerUpsFragment: BaseFragment<PowerUpsLayoutBinding, PowerUpsViewModel>()
 
     override fun onDeletePowerUpClicked(powerUps: PowerUps) {
         parentCallbacks?.showProgressSpinnerView()
-        viewModel?.removePowerup(powerUps)
+        viewModel?.setPowerupAsDeleted(powerUps)
     }
 
     override fun requestPowerUps() {

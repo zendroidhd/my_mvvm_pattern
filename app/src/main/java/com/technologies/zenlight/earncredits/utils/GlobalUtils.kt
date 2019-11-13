@@ -21,4 +21,7 @@ fun isEmailValid(email: String): Boolean {
 
 val dateFormatter = java.text.SimpleDateFormat("MM/dd/yyyy", Locale.US)
 
+val timeFormatter = java.text.SimpleDateFormat("h:mm a", Locale.US)
+
+
 val REMOVE_NON_DIGITS = Regex("[^\\d]")
