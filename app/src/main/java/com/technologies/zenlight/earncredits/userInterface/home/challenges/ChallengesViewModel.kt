@@ -76,16 +76,6 @@ class ChallengesViewModel : BaseViewModel() {
         }
     }
 
-    fun setChallengeAsDeleted(challenge: Challenges) {
-        callbacks?.getActivityContext()?.let { activity ->
-            if (isConnected(activity)) {
-                dataModel?.setChallengeAsDeleted(this, challenge)
-            } else {
-                callbacks?.handleError(NO_NETWORK_TITLE, NO_NETWORK_BODY)
-            }
-        }
-    }
-
     fun deleteChallengeWithFeedback(challenge: Challenges) {
         callbacks?.getActivityContext()?.let { activity ->
             if (isConnected(activity)) {

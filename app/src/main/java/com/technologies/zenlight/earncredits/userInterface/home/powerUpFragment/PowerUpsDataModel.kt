@@ -84,7 +84,7 @@ class PowerUpsDataModel @Inject constructor(private val dataManager: AppDataMana
 
 
 
-    fun setPowerupAsDeleted(viewModel: PowerUpsViewModel, powerUps: PowerUps) {
+    private fun setPowerupAsDeleted(viewModel: PowerUpsViewModel, powerUps: PowerUps) {
         val completedTimeStamp: Long = System.currentTimeMillis() / 1000
         powerUps.isDeleted = true
         powerUps.actualUseDate = completedTimeStamp
@@ -92,6 +92,22 @@ class PowerUpsDataModel @Inject constructor(private val dataManager: AppDataMana
         db.collection(POWERUPS_COLLECTION)
             .document(powerUps.id)
             .set(powerUps)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    viewModel.powerUpsList.remove(powerUps)
+                    viewModel.callbacks?.onPowerUpsReturnedSuccessfully()
+                } else {
+                    val message = task.exception?.message ?: "Authentication Failed (F)"
+                    viewModel.callbacks?.handleError("Error", message)
+                }
+            }
+    }
+
+    fun removePowerupWithFeedback(viewModel: PowerUpsViewModel,powerUps: PowerUps) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection(POWERUPS_COLLECTION)
+            .document(powerUps.id)
+            .delete()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     viewModel.powerUpsList.remove(powerUps)

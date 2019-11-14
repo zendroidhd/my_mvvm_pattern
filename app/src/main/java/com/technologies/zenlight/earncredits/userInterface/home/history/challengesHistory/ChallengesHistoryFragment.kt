@@ -66,6 +66,7 @@ class ChallengesHistoryFragment : BaseFragment<ChallengesHistoryLayoutBinding, C
         challengesList.clear()
         viewModel?.let {
             challengesList.addAll(it.challengesList)
+            challengesList.sortWith(Comparator { o1, o2 -> o1.actualCompletionDate.compareTo(o2.actualCompletionDate) })
             challengesAdapter?.notifyDataSetChanged()
         }
     }

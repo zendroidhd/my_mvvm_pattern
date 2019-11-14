@@ -14,8 +14,8 @@ class PowerUpsHistoryAdapter(private val powerUps: ArrayList<PowerUps>) : Recycl
     inner class ViewHolder(val binding: ChallengesHistoryListRowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(powerUp: PowerUps) {
             binding.tvTitle.text = powerUp.description
-            binding.tvCompletedTime.text = "Cost: ${powerUp.getActualUseDate()}"
-            binding.tvCost.text = powerUp.cost.toString()
+            binding.tvCompletedTime.text = powerUp.getActualUseDate()
+            binding.tvCost.text = "Cost: ${powerUp.cost}"
         }
     }
 

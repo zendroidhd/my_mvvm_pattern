@@ -131,7 +131,7 @@ class PowerUpsFragment: BaseFragment<PowerUpsLayoutBinding, PowerUpsViewModel>()
 
     override fun onDeletePowerUpClicked(powerUps: PowerUps) {
         parentCallbacks?.showProgressSpinnerView()
-        viewModel?.setPowerupAsDeleted(powerUps)
+        viewModel?.deletePowerUp(powerUps)
     }
 
     override fun requestPowerUps() {

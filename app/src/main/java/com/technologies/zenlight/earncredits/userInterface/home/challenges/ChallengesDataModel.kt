@@ -243,7 +243,7 @@ class ChallengesDataModel @Inject constructor(private val dataManager: AppDataMa
     /**
      * Sets the challenge status as deleted
      */
-    fun setChallengeAsDeleted(viewModel: ChallengesViewModel, challenge: Challenges) {
+   private fun setChallengeAsDeleted(viewModel: ChallengesViewModel, challenge: Challenges) {
         val db = FirebaseFirestore.getInstance()
         val completedTimeStamp: Long = System.currentTimeMillis() / 1000
         challenge.actualCompletionDate = completedTimeStamp

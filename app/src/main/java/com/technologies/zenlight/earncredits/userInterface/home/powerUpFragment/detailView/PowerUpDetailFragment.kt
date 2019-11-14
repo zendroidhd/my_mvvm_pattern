@@ -64,6 +64,7 @@ class PowerUpDetailFragment : Fragment() {
     private fun setIcon(powerUp: PowerUps) {
         val context = binding.root.context
         when {
+            powerUp.icon == "zelda" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.zelda_occarina))
             powerUp.icon == "mushroom" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.mario_mushroom))
             powerUp.icon == "shield" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.shield))
             powerUp.icon == "fireball" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.hadouken))
@@ -75,6 +76,7 @@ class PowerUpDetailFragment : Fragment() {
 
     private fun setIconHintText(powerUp: PowerUps) {
         when {
+            powerUp.icon == "zelda" -> binding.tvIconHintText.text = "'You must travel over mountains, under water, and even through time.'"
             powerUp.icon == "mushroom" -> binding.tvIconHintText.text = "Helps plumbers grow 2x their size!"
             powerUp.icon == "shield" -> binding.tvIconHintText.text = "Give me strength!"
             powerUp.icon == "fireball" -> binding.tvIconHintText.text = "Hadouken!"
@@ -105,6 +107,10 @@ class PowerUpDetailFragment : Fragment() {
             powerUp.icon == "pizza" -> {
                 binding.tvStatsOne.text = "+75% Health"
                 binding.tvStatsTwo.text = ""
+            }
+            powerUp.icon == "zelda" -> {
+                binding.tvStatsOne.text = "+25% Attack"
+                binding.tvStatsTwo.text = "+100% Time Travel speed"
             }
             else -> {
                 binding.tvStatsOne.text = "+25 Points"

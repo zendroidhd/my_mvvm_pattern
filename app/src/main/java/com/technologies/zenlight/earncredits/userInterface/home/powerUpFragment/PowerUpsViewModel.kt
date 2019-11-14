@@ -78,13 +78,13 @@ class PowerUpsViewModel : BaseViewModel() {
         }
     }
 
-        fun setPowerupAsDeleted(powerUps: PowerUps) {
-            callbacks?.getActivityContext()?.let { activity ->
-                if (isConnected(activity)) {
-                    dataModel?.setPowerupAsDeleted(this, powerUps)
-                } else {
-                    callbacks?.handleError(NO_NETWORK_TITLE, NO_NETWORK_BODY)
-                }
+    fun deletePowerUp(powerUps: PowerUps) {
+        callbacks?.getActivityContext()?.let { activity ->
+            if (isConnected(activity)) {
+                dataModel?.removePowerupWithFeedback(this, powerUps)
+            } else {
+                callbacks?.handleError(NO_NETWORK_TITLE, NO_NETWORK_BODY)
             }
         }
+    }
 }

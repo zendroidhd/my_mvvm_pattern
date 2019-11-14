@@ -28,6 +28,7 @@ class PowerUpsAdapter(private val powerUps: ArrayList<PowerUps>, private val cal
             val context = binding.root.context
             when {
                 powerUp.icon == "mushroom" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.mario_mushroom))
+                powerUp.icon == "zelda" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.zelda_occarina))
                 powerUp.icon == "shield" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.shield))
                 powerUp.icon == "fireball" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.hadouken))
                 powerUp.icon == "glove" -> binding.ivIcon.setImageDrawable(context.getDrawable(R.drawable.boxing_glove))

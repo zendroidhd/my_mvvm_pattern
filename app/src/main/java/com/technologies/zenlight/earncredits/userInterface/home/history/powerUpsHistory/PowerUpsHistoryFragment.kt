@@ -73,6 +73,7 @@ class PowerUpsHistoryFragment : BaseFragment<PowerUpsHistoryLayoutBinding, Power
         viewModel?.let {
             powerUpsList.clear()
             powerUpsList.addAll(it.powerUpsList)
+            powerUpsList.sortWith(Comparator { o1, o2 -> o1.actualUseDate.compareTo(o2.actualUseDate) })
             powerUpAdapter?.notifyDataSetChanged()
         }
     }
