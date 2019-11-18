@@ -58,7 +58,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:text="Description:"
-                        android:textColor="@color/white"
+                        android:textColor="@color/material_icon"
                         android:textSize="11sp" />
                 
                 <EditText
@@ -72,7 +72,7 @@
                         android:fontFamily="@font/arcade_font"
                         android:hint="Ex. Do 100 pushups"
                         android:imeOptions="actionDone"
-                        android:inputType="textCapSentences|textMultiLine"
+                        android:inputType="textCapSentences"
                         android:lineSpacingExtra="15dp"
                         android:minHeight="60dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -86,7 +86,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="10dp"
                         android:text="Completion Date:"
-                        android:textColor="@color/white"
+                        android:textColor="@color/material_icon"
                         android:textSize="11sp" />
                 
                 <com.google.android.material.button.MaterialButton
@@ -114,7 +114,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="10dp"
                         android:text="Credits:"
-                        android:textColor="@color/white"
+                        android:textColor="@color/material_icon"
                         android:textSize="11sp" />
                 
                 <FrameLayout
