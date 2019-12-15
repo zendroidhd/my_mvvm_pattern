@@ -16,6 +16,7 @@ import com.technologies.zenlight.earncredits.userInterface.home.history.HistoryP
 import com.technologies.zenlight.earncredits.userInterface.home.homeActivity.HomeActivityCallbacks
 import com.technologies.zenlight.earncredits.userInterface.home.leaderboards.LeaderboardsFragment
 import com.technologies.zenlight.earncredits.userInterface.home.myProfile.MyProfileFragment
+import com.technologies.zenlight.earncredits.userInterface.home.suggestionBox.SuggestionBoxFragment
 import com.technologies.zenlight.earncredits.userInterface.login.loginActivity.LoginActivity
 import com.technologies.zenlight.earncredits.utils.*
 import java.util.*
@@ -74,6 +75,14 @@ class MainMenuFragment : BaseFragment<MainMenuLayoutBinding, MainMenuViewModel>(
             val manager = it.supportFragmentManager
             val fragment = HistoryPagerFragment.newInstance()
             addFragmentVertically(fragment, manager, "HistoryFragment", null)
+        }
+    }
+
+    override fun onSuggestionBoxClicked() {
+        baseActivity?.let {
+            val manager = it.supportFragmentManager
+            val fragment = SuggestionBoxFragment.newInstance()
+            addFragmentVertically(fragment, manager, "SuggestionBox", null)
         }
     }
 

@@ -12,6 +12,7 @@ import com.technologies.zenlight.earncredits.userInterface.home.mainMenu.MainMen
 import com.technologies.zenlight.earncredits.userInterface.home.myProfile.MyProfileFragment
 import com.technologies.zenlight.earncredits.userInterface.home.powerUpFragment.PowerUpsFragment
 import com.technologies.zenlight.earncredits.userInterface.home.powerUpFragment.createNewPowerup.CreateNewPowerupFragment
+import com.technologies.zenlight.earncredits.userInterface.home.suggestionBox.SuggestionBoxFragment
 import com.technologies.zenlight.earncredits.userInterface.login.forgotPassword.ForgotPasswordFragment
 import com.technologies.zenlight.earncredits.userInterface.login.loginFragment.LoginFragment
 import com.technologies.zenlight.earncredits.userInterface.login.signUp.SignUpFragment
@@ -65,4 +66,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     internal abstract fun bindChallengesHistoryFragment(): ChallengesHistoryFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bindSuggestionBoxFragment(): SuggestionBoxFragment
 }

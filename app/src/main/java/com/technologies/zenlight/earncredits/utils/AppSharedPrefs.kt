@@ -77,6 +77,14 @@ class AppSharedPrefs @Inject constructor(private val sharedPreferences: SharedPr
             .putBoolean(USER_LOGGED_IN,loggedIn)
             .apply()
 
+    var hasSeenTutorial: Boolean
+        get() = sharedPreferences
+            .getBoolean(HAS_SEEN_TUTORIAL, false)
+        set(loggedIn) = sharedPreferences
+            .edit()
+            .putBoolean(HAS_SEEN_TUTORIAL, loggedIn)
+            .apply()
+
 
     companion object {
         private const val USER_NAME = "userName"
@@ -88,6 +96,7 @@ class AppSharedPrefs @Inject constructor(private val sharedPreferences: SharedPr
         private const val QUOTE_DAY_IN_YEAR = "quoteDayInYear"
         private const val SAVED_QUOTE = "savedQuote"
         private const val SAVED_AUTHOR = "savedAuthor"
+        private const val HAS_SEEN_TUTORIAL = "HasSeenTutorial"
         val FIREBASE_DEVICE_TOKEN = "fireBaseDeviceToken"
     }
 }

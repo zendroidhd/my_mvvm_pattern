@@ -7,4 +7,5 @@ class HomeActivityViewModel: BaseViewModel() {
     /******** Getters and Setters ********/
 
     var callbacks: HomeActivityCallbacks? = null
+
 }

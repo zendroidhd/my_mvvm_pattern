@@ -52,6 +52,11 @@ class HomeFragment : BaseFragment<HomeLayoutBinding, HomeFragmentViewModel>(), H
         return dataBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setTutorial()
+    }
+
     override fun handleError(title: String, body: String) {
         showAlertDialog(activity,title,body)
     }
@@ -71,6 +76,30 @@ class HomeFragment : BaseFragment<HomeLayoutBinding, HomeFragmentViewModel>(), H
         }
     }
 
+    override fun onSkipOnboardingClicked() {
+        dataBinding.layoutTutorial.visibility = View.INVISIBLE
+        dataManager.getSharedPrefs().hasSeenTutorial = true
+    }
+
+    override fun onNextOnboardingChallengeClicked() {
+        dataManager.getSharedPrefs().hasSeenTutorial = true
+        dataBinding.onboardingDialogChallenges.visibility = View.INVISIBLE
+        dataBinding.onboardingDialogPowerups.visibility = View.VISIBLE
+    }
+
+    override fun onNextOnboardingPowerUpClicked() {
+        dataManager.getSharedPrefs().hasSeenTutorial = true
+        dataBinding.onboardingDialogPowerups.visibility = View.INVISIBLE
+        dataBinding.onboardingDialogMenu.visibility = View.VISIBLE
+        dataBinding.btnTutorialMenu.visibility = View.VISIBLE
+    }
+
+    override fun onFinishOnboardingClicked() {
+        dataManager.getSharedPrefs().hasSeenTutorial = true
+        dataBinding.btnTutorialMenu.visibility = View.INVISIBLE
+        dataBinding.layoutTutorial.visibility = View.INVISIBLE
+    }
+
     private class PagerAdapter(fm: FragmentManager, val callbacks: HomeFragmentCallbacks) :
         FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getItem(position: Int): Fragment {
@@ -81,5 +110,14 @@ class HomeFragment : BaseFragment<HomeLayoutBinding, HomeFragmentViewModel>(), H
             }
         }
         override fun getCount() = 2
+    }
+
+    private fun setTutorial() {
+        val hasSeenTutorial = dataManager.getSharedPrefs().hasSeenTutorial
+        if (hasSeenTutorial) {
+            dataBinding.layoutTutorial.visibility = View.INVISIBLE
+        } else {
+            dataBinding.layoutTutorial.visibility = View.VISIBLE
+        }
     }
 }

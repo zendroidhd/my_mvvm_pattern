@@ -25,6 +25,14 @@ class HomeFragmentViewModel : BaseViewModel() {
         callbacks?.onHamburgerClicked()
     }
 
+    fun onSkipOnboardingClicked() = callbacks?.onSkipOnboardingClicked()
+
+    fun onNextOnboardingChallengeClicked() = callbacks?.onNextOnboardingChallengeClicked()
+
+    fun onNextOnboardingPowerUpClicked() = callbacks?.onNextOnboardingPowerUpClicked()
+
+    fun onFinishOnboardingClicked() = callbacks?.onFinishOnboardingClicked()
+
     /******** Business Logic **********/
 
     private val profileObserver = object : Observer<UserProfile> {

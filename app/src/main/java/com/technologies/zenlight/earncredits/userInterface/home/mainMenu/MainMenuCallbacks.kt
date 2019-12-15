@@ -6,6 +6,8 @@ interface MainMenuCallbacks {
 
     fun onHistoryClicked()
 
+    fun onSuggestionBoxClicked()
+
     fun onNewQuotesClicked()
 
     fun onMyProfileClicked()

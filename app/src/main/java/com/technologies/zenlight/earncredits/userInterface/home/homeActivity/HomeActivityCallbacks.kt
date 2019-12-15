@@ -8,6 +8,4 @@ interface HomeActivityCallbacks {
 
     fun isLoading(): Boolean
 
-
-
 }

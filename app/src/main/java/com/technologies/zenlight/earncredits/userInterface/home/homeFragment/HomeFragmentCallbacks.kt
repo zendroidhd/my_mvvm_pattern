@@ -8,4 +8,12 @@ interface HomeFragmentCallbacks {
     fun onUserProfileReturnedSuccessfully()
 
     fun handleError(title: String, body: String)
+
+    fun onSkipOnboardingClicked()
+
+    fun onNextOnboardingChallengeClicked()
+
+    fun onNextOnboardingPowerUpClicked()
+
+    fun onFinishOnboardingClicked()
 }

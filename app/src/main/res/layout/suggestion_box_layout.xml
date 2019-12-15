@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+        
+        <import type="android.view.View" />
+        
+        <variable
+                name="viewModel"
+                type="com.technologies.zenlight.earncredits.userInterface.home.suggestionBox.SuggestionBoxViewModel" />
+    
+    </data>
+    
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@color/black_color">
+    
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/arcade_font"
+            android:text="Any Suggestions?"
+            android:textSize="17sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/transparent_white"
+            android:textStyle="bold" />
+    
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center_horizontal"
+            app:cardCornerRadius="90dp"
+            app:cardBackgroundColor="@color/black_color"
+            android:layout_marginTop="25dp">
+        
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/black_color"
+                android:scaleX="1.8"
+                android:scaleY="1.8"
+                android:src="@drawable/suggestion_box" />
+    
+    
+    </com.google.android.material.card.MaterialCardView>
+    
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            app:cardBackgroundColor="@color/transparent_black"
+            app:rippleColor="@color/transparent_white"
+            app:strokeColor="@color/dark_orange"
+            app:strokeWidth="2dp"
+            app:cardElevation="15dp"
+            app:cardUseCompatPadding="true">
+        
+        <EditText
+                android:id="@+id/et_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="Your Suggestion"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences|textMultiLine"
+                android:padding="15dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:fontFamily="@font/arcade_font"
+                android:textColor="@color/dark_orange"
+                android:textColorHint="@color/material_icon" />
+    
+    
+    </com.google.android.material.card.MaterialCardView>
+    
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="15dp"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textAppearance="@style/Base.Widget.AppCompat.TextView"
+            android:textColor="@color/white"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:fontFamily="@font/arcade_font"
+            app:rippleColor="@color/super_transparent_white"
+            android:onClick="@{()-> viewModel.onSubmitClicked()}"
+            />
+
+</LinearLayout>
+
+</layout>

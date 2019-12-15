@@ -38,6 +38,8 @@ class MainMenuViewModel: BaseViewModel() {
         callbacks?.onMyProfileClicked()
     }
 
+    fun onSuggestionBoxClicked() = callbacks?.onSuggestionBoxClicked()
+
 
     /******** DataModel Requests *********/
 

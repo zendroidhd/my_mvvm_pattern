@@ -139,6 +139,162 @@
         
         
         </LinearLayout>
+        
+        <FrameLayout
+                android:id="@+id/layout_tutorial"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent_black_dark"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="invisible"
+                tools:visibility="visible">
+    
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_tutorial_menu"
+                    style="@style/IconOnlyButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:visibility="invisible"
+                    app:icon="@drawable/ic_hamburger"
+                    app:iconTint="@color/white"
+                    app:rippleColor="@color/pac_yellow" />
+    
+            <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/onboarding_dialog_challenges"
+                    android:layout_width="200dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center">
+        
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:text="Use the main screen to add your 'Challenges'"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textSize="17sp" />
+        
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:orientation="horizontal">
+            
+                    <com.google.android.material.button.MaterialButton
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="2dp"
+                            android:layout_weight="1"
+                            android:onClick="@{()-> viewModel.onSkipOnboardingClicked()}"
+                            android:text="Skip"
+                            android:textAllCaps="false"
+                            android:textColor="@color/arcade_red"
+                            app:backgroundTint="@color/white"
+                            app:rippleColor="@color/super_transparent_white" />
+            
+                    <com.google.android.material.button.MaterialButton
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="@{()-> viewModel.onNextOnboardingChallengeClicked()}"
+                            android:text="Next"
+                            android:textAllCaps="false"
+                            android:textColor="@color/arcade_red"
+                            app:backgroundTint="@color/white"
+                            app:rippleColor="@color/super_transparent_white" />
+        
+                </LinearLayout>
+    
+            </com.google.android.material.card.MaterialCardView>
+    
+            <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/onboarding_dialog_powerups"
+                    android:layout_width="200dp"
+                    android:layout_height="160dp"
+                    android:visibility="invisible"
+                    android:layout_gravity="center">
+        
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:text="Swipe left to add 'Power Ups' that allow you to spend your hard earned credits"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textSize="17sp" />
+        
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:orientation="horizontal">
+            
+                    <com.google.android.material.button.MaterialButton
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="2dp"
+                            android:layout_weight="1"
+                            android:onClick="@{()-> viewModel.onSkipOnboardingClicked()}"
+                            android:text="Skip"
+                            android:textAllCaps="false"
+                            android:textColor="@color/arcade_red"
+                            app:backgroundTint="@color/white"
+                            app:rippleColor="@color/super_transparent_white" />
+            
+                    <com.google.android.material.button.MaterialButton
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="@{()-> viewModel.onNextOnboardingPowerUpClicked()}"
+                            android:text="Next"
+                            android:textAllCaps="false"
+                            android:textColor="@color/arcade_red"
+                            app:backgroundTint="@color/white"
+                            app:rippleColor="@color/super_transparent_white" />
+        
+                </LinearLayout>
+    
+            </com.google.android.material.card.MaterialCardView>
+    
+            <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/onboarding_dialog_menu"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="95dp"
+                    android:visibility="invisible">
+        
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:lineSpacingExtra="2dp"
+                        android:text="Use the menu button to update your 'Game Options', view the quote of the day, and send us suggestions."
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textSize="17sp" />
+    
+                <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1"
+                        android:onClick="@{()-> viewModel.onFinishOnboardingClicked()}"
+                        android:text="Finish"
+                        android:textAllCaps="false"
+                        android:textColor="@color/arcade_red"
+                        app:backgroundTint="@color/white"
+                        app:rippleColor="@color/super_transparent_white" />
+    
+            </com.google.android.material.card.MaterialCardView>
+            
+            
+        </FrameLayout>
     
     </FrameLayout>
 
