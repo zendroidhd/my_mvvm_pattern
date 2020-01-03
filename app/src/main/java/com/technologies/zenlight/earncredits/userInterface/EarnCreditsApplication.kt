@@ -5,10 +5,12 @@ import android.app.Application
 import android.app.Service
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
+import com.crashlytics.android.Crashlytics
 import com.technologies.zenlight.earncredits.data.AppDataManager
 import com.technologies.zenlight.earncredits.dependencyInjection.component.DaggerApplicationComponent
 import dagger.android.*
 import dagger.android.support.HasSupportFragmentInjector
+import io.fabric.sdk.android.Fabric
 import javax.inject.Inject
 
 class EarnCreditsApplication : Application(), HasActivityInjector, HasServiceInjector,HasSupportFragmentInjector, LifecycleObserver {
@@ -31,10 +33,19 @@ class EarnCreditsApplication : Application(), HasActivityInjector, HasServiceInj
 
     override fun onCreate() {
         super.onCreate()
+        initializeCrashlytics()
+        initializeDagger()
+    }
+
+    private fun initializeDagger() {
         DaggerApplicationComponent.builder()
             .application(this)
             .build()
             .inject(this)
+    }
+
+    private fun initializeCrashlytics() {
+        Fabric.with(this, Crashlytics())
     }
 
     override fun activityInjector(): AndroidInjector<Activity> {
