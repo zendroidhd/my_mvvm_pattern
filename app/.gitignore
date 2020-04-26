@@ -38,9 +38,6 @@ bin/
 gen/
 out/
 
-# Eclipse project files
-.classpath
-.project
 
 # Android Studio
 *.apk

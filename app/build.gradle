@@ -166,4 +166,6 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$rootProject.roomDatabase"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomDatabase"
 
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
 }

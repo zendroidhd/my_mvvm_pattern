@@ -2,6 +2,7 @@ package com.technologies.zenlight.earncredits.userInterface.login.loginFragment
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
@@ -13,6 +14,12 @@ import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProviders
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.technologies.zenlight.earncredits.BR
 import com.technologies.zenlight.earncredits.R
 import com.technologies.zenlight.earncredits.databinding.LoginHomeScreenBinding
@@ -21,10 +28,7 @@ import com.technologies.zenlight.earncredits.userInterface.home.homeActivity.Hom
 import com.technologies.zenlight.earncredits.userInterface.login.forgotPassword.ForgotPasswordFragment
 import com.technologies.zenlight.earncredits.userInterface.login.loginActivity.LoginActivityCallbacks
 import com.technologies.zenlight.earncredits.userInterface.login.signUp.SignUpFragment
-import com.technologies.zenlight.earncredits.utils.addFragmentFadeIn
-import com.technologies.zenlight.earncredits.utils.showAlertDialog
-import com.technologies.zenlight.earncredits.utils.showForgotPasswordAlertDialog
-import com.technologies.zenlight.earncredits.utils.showSignUpAlertDialog
+import com.technologies.zenlight.earncredits.utils.*
 import javax.inject.Inject
 
 class LoginFragment : BaseFragment<LoginHomeScreenBinding, LoginFragmentViewModel>(), LoginFragmentCallbacks {
@@ -40,6 +44,8 @@ class LoginFragment : BaseFragment<LoginHomeScreenBinding, LoginFragmentViewMode
     override var bindingVariable: Int = BR.viewModel
 
     override var layoutId: Int = R.layout.login_home_screen
+
+    val client_id = "156426603330-86mvmp15m3l5jvgpt92lg6rr8ag2id2r.apps.googleusercontent.com"
 
 
     override fun onAttach(context: Context) {
@@ -57,6 +63,7 @@ class LoginFragment : BaseFragment<LoginHomeScreenBinding, LoginFragmentViewMode
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
          super.onCreateView(inflater, container, savedInstanceState)
         fadeInTitle()
+        initializeGoogleSignIn()
         return dataBinding.root
     }
 
@@ -119,6 +126,9 @@ class LoginFragment : BaseFragment<LoginHomeScreenBinding, LoginFragmentViewMode
             val fragment = ForgotPasswordFragment.newInstance()
             addFragmentFadeIn(fragment,manager,"ForgotPassword",null)
         }
+
+//        val intent = viewModel!!.googleSignInClient!!.signInIntent
+//        startActivityForResult(intent, viewModel!!.GOOGLE_SIGN_IN)
     }
 
     override fun onEnterButtonClicked() {
@@ -169,6 +179,32 @@ class LoginFragment : BaseFragment<LoginHomeScreenBinding, LoginFragmentViewMode
                 .setLegacyStreamType(AudioManager.STREAM_MUSIC)
                 .build())
         mediaPlayer.start()
+    }
+
+    private fun initializeGoogleSignIn() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .requestIdToken(client_id)
+            .build()
+        viewModel!!.googleSignInClient = GoogleSignIn.getClient(baseActivity!!,gso)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == viewModel!!.GOOGLE_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleGoogleSignInResult(task)
+        }
+    }
+
+    private fun handleGoogleSignInResult(task: Task<GoogleSignInAccount>) {
+        try {
+            val account = task.getResult(ApiException::class.java)
+            showToastShort(activity,"Approved")
+        } catch (e: ApiException) {
+            val msg = GoogleSignInStatusCodes.getStatusCodeString(e.statusCode)
+            showToastShort(activity,msg)
+        }
     }
 
 }

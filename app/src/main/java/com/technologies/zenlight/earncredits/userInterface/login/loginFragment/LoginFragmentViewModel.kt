@@ -1,5 +1,6 @@
 package com.technologies.zenlight.earncredits.userInterface.login.loginFragment
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.technologies.zenlight.earncredits.data.model.api.UserProfile
 import com.technologies.zenlight.earncredits.userInterface.base.BaseViewModel
 import com.technologies.zenlight.earncredits.utils.NO_NETWORK_BODY
@@ -15,6 +16,8 @@ class LoginFragmentViewModel : BaseViewModel() {
     var dataModel: LoginFragmentDataModel? = null
     var userProfile: UserProfile? = null
 
+    var googleSignInClient: GoogleSignInClient? = null
+    val GOOGLE_SIGN_IN = 101
 
     /********* OnClick Listeners *************/
 

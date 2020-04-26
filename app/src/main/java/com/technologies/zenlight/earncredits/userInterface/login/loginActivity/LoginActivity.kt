@@ -11,6 +11,7 @@ import com.technologies.zenlight.earncredits.databinding.FragmentContainerBindin
 import com.technologies.zenlight.earncredits.userInterface.base.BaseActivity
 import com.technologies.zenlight.earncredits.userInterface.home.homeActivity.HomeActivity
 import com.technologies.zenlight.earncredits.userInterface.login.loginFragment.LoginFragment
+import com.technologies.zenlight.earncredits.utils.showToastLong
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity<FragmentContainerBinding, LoginActivityViewModel>(), LoginActivityCallbacks {

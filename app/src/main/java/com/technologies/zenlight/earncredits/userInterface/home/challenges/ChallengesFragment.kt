@@ -85,7 +85,7 @@ class ChallengesFragment: BaseFragment<ChallengesLayoutBinding, ChallengesViewMo
         challengesList.clear()
         viewModel?.let {
             challengesList.addAll(it.challengesList)
-            challengesList.sortWith(Comparator { o1, o2 -> o1.createdOn.compareTo(o2.createdOn) })
+            challengesList.sortWith(Comparator { o1, o2 -> o1.completeBy.compareTo(o2.completeBy) })
             challengesAdapter?.notifyDataSetChanged()
         }
 
