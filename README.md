@@ -3,7 +3,7 @@
 ## Purpose
 This codebase provides a sample of my particular style of MVVM. Whle most projects I have seen use architecture patterns in the project,
 A good amount of those projects did not have a clear pattern regarding the structure of the code, this codebase is my personal
-preference regarding a cleal, testable structure.
+preference regarding a clean, testable structure.
 
 ### Structure
 Their are four main classes per activity/fragment
