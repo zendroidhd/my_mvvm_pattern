@@ -1,37 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android = "http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:card_view = "http://schemas.android.com/apk/res-auto"
-        xmlns:tools = "http://schemas.android.com/tools">
-    
-    <data>
-        
-        <import type = "android.view.View"/>
-        
-        <variable
-                name = "viewModel"
-                type = "com.technologies.zenlight.earncredits.userInterface.login.loginActivity.LoginActivityViewModel"/>
-    
-    </data>
-    
-    
-    <FrameLayout
-            android:layout_width = "match_parent"
-            android:layout_height = "match_parent"
-            >
-        
-        
+<layout xmlns:android = "http://schemas.android.com/apk/res/android">
+
         <FrameLayout
                 android:id = "@+id/fragment_container"
                 android:layout_width = "match_parent"
-                android:layout_height = "match_parent">
-        
-        </FrameLayout>
-    
-        <include layout="@layout/default_progress_spinner"
-                 android:id="@+id/layout_progress"/>
-        
-    </FrameLayout>
+                android:layout_height = "match_parent"/>
 
 </layout>
